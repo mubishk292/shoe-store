@@ -20,7 +20,7 @@ export default () => {
                     user: resp.data.userFound,
                 })
                 navigate('/dashboard')
-                console.log('Login', resp.data)
+                console.log(resp.data.userFound)
             } else {
                 alert('User not found')
             }

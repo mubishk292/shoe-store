@@ -12,7 +12,7 @@ export default () => {
         console.log(myData);
 
         let form = new FormData;
-        form.append('username', myData.username)
+        form.append('name', myData.name)
         form.append('password', myData.password)
         form.append('email', myData.email)
         form.append('file', myData.profilePic[0])
@@ -28,7 +28,7 @@ export default () => {
         <Form className='loginForm' onSubmit={handleSubmit(formSubmisiion)}>
             <Form.Group className="mb-3" controlId="formBasicUsername">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Enter username" {...register('username', { required: true })} />
+                <Form.Control type="text" placeholder="Enter username" {...register('name', { required: true })} />
                 {errors.username ? <div className="red">
                     Please enter a valid Username
                 </div> : null}

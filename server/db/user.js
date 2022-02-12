@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 let userStructure  = mongoose.Schema({
-    username :String,
+    name :String,
     password :String,
     email :String,
     pic :String,

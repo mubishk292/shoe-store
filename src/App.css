@@ -28,3 +28,15 @@ a  {
   margin: auto;
   margin-top: 30px;
 }
+
+.user-name{
+  /* margin-left: 8%; */
+  color: white;
+}
+
+.thumb-profile{
+  width:50px;
+  height: 50px;
+  border-radius: 50px;
+  vertical-align: middle;
+}

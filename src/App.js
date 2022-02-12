@@ -7,7 +7,6 @@ import Login from './components/signupLogin/login'
 import Dashboard from './components/dashboard/dashboard'
 import LaunchPage from './components/launchPage/launchpage'
 import LaunchShoe from './components/launchPage/launchShoe'
-import Launch from './components/launchPage/launch'
 export default () => {
 
   const shoes_ad = {
@@ -93,12 +92,8 @@ export default () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route exact path='/launch' element={<Launch />}>
-
-          <Route path='/' element={<LaunchPage data={shoes_ad} />} />
-          <Route path=':index' element={<LaunchShoe data={shoes_ad}/>} />
-
-        </Route>
+        <Route path='/launch' element={<LaunchPage data={shoes_ad} />} />
+        <Route path='/launch/:index' element={<LaunchShoe data={shoes_ad} />} />
       </Routes>
     </BrowserRouter>
   </div>
