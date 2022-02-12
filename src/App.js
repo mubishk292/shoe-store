@@ -12,7 +12,7 @@ import LaunchPage from './components/launchPage/launchpage'
 import LaunchShoe from './components/launchPage/launchShoe'
 import Cart from './components/Cart/cart'
 import myStore from './store/store';
-
+import CreateAd from './components/createAd/createAd';
 export default () => {
 
   const shoes_ad = {
@@ -117,6 +117,7 @@ export default () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/create-ad' element={<CreateAd />} />
         <Route path='/launch' element={<LaunchPage data={shoes_ad} />} />
         <Route path='/launch/:index' element={<LaunchShoe data={shoes_ad} />} />
         <Route path='/cart' element={<Cart  />} />

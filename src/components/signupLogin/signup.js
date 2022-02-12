@@ -29,7 +29,7 @@ export default () => {
             <Form.Group className="mb-3" controlId="formBasicUsername">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" placeholder="Enter username" {...register('name', { required: true })} />
-                {errors.username ? <div className="red">
+                {errors.name ? <div className="red">
                     Please enter a valid Username
                 </div> : null}
             </Form.Group>

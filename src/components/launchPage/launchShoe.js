@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { Button, Col, Row } from "react-bootstrap";
 import './file.css'
 import { useState } from "react";
-import { Link , useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export default ({ data }) => {

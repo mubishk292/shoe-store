@@ -32,6 +32,7 @@ export default () => {
             user.name ? null :
               <Nav.Link ><Link to="/signup">Signup</Link></Nav.Link>
           }
+
           {
             user.name ? null :
               <Nav.Link ><Link to="/login">Login</Link></Nav.Link>
@@ -40,7 +41,9 @@ export default () => {
             user.name ? 
               <Nav.Link ><Link to="/dashboard">Dashboard</Link></Nav.Link> : null
           }
+          
           <Nav.Link ><Link to="/launch">Launch</Link></Nav.Link>
+          <Nav.Link ><Link to="/create-ad">Create Ad</Link></Nav.Link>
 
           {!user.name ? null :
             <Nav.Link><Link to="" onClick={() => {

@@ -8,6 +8,7 @@ const jsToken = require('jsonwebtoken');
 
 const mongoose = require('mongoose');
 const User = require('./db/user');
+const Ad = require('./db/ad')
 
 mongoose.connect('mongodb://localhost:27017/ShoeStore', (err, connection) => {
 
@@ -89,6 +90,20 @@ app.post('/check-session', async (req, res) => {
         res.json(null);
     }
 });
+
+app.post('/create-ad',upload.single('file'), async (req,res)=>{
+    console.log(req.body)
+    try{
+        req.body.pic = req.file.originalname;
+        let ad = new Ad(req.body)
+
+        await ad.save();
+        res.json({success:true})
+    }catch(e){
+        res.json(e)
+    }
+
+})
 
 app.use(express.static('./server/build'))
 app.use(express.static('./server/uploads'))
