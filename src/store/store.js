@@ -32,6 +32,7 @@ function UserSection(oldData = initialData, newData) {
             break;
         case "LOGOUT_HOGYA":
             oldData.currentUser = {};
+            localStorage.removeItem('myToken');
             break;
     }
 

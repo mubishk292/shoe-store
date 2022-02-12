@@ -4,10 +4,12 @@ let app = express();
 
 app.use(express.json())
 
+const jsToken = require('jsonwebtoken');
+
 const mongoose = require('mongoose');
 const User = require('./db/user');
 
-mongoose.connect('mongodb://localhost:27017/ShoeStore', (err, connection)=>{
+mongoose.connect('mongodb://localhost:27017/ShoeStore', (err, connection) => {
 
     console.log(err || connection)
 
@@ -25,44 +27,72 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-app.post('/signup-form' , upload.single('file') , async (req, res)=>{
-    try{
+app.post('/signup-form', upload.single('file'), async (req, res) => {
+    try {
         console.log(req.body);
         req.body.pic = req.file.originalname;
 
         let newUser = new User(req.body)
-        
-        await newUser.save()
-        
-        res.json({success : true})
 
-    }catch(e){
+        await newUser.save()
+
+        res.json({ success: true })
+
+    } catch (e) {
         res.json(e)
     }
 })
 
-app.post('/login-form' , async(req,res)=>{
-    try{
+app.post('/login-form', async (req, res) => {
+    try {
         console.log(req.body);
-        let userFound =await User.findOne({
-            email : req.body.email,
+        let userFound = await User.findOne({
+            email: req.body.email,
             password: req.body.password
         })
 
-        if(userFound){
-            res.json({userFound})
-            // console.log('Login Successful');
-        }else{
+        if (userFound) {
+            jsToken.sign({ myIndex: userFound.id }, "cat says mioon", { expiresIn: '1d' }, (err, nishani) => {
+
+                res.json({
+                    userFound,
+                    nishani
+                })
+
+            })
+
+        } else {
             res.json(null)
         }
-    }catch(e){
+    } catch (e) {
         res.json(e)
     }
 })
+
+app.post('/check-session', async (req, res) => {
+
+    try {
+
+        jsToken.verify(req.body.nishani, "cat says mioon", async (err, verifyHogya) => {
+
+            if (verifyHogya) {
+
+                let user = await User.findById(verifyHogya.myIndex);
+                res.json(user);
+            } else {
+                res.json(null);
+            }
+            console.log(verifyHogya)
+        })
+
+    } catch (e) {
+        res.json(null);
+    }
+});
 
 app.use(express.static('./server/build'))
 app.use(express.static('./server/uploads'))
 
-app.listen(process.env.PORT ||4433, function () {
+app.listen(process.env.PORT || 4433, function () {
     console.log('Server Start');
 })

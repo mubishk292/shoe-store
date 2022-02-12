@@ -1,12 +1,18 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route, Link, useParams } from 'react-router-dom'
+import axios from 'axios';
+import { useEffect } from 'react';
+
 import Header from './components/header/header'
 import Signup from './components/signupLogin/signup'
 import Login from './components/signupLogin/login'
 import Dashboard from './components/dashboard/dashboard'
 import LaunchPage from './components/launchPage/launchpage'
 import LaunchShoe from './components/launchPage/launchShoe'
+import Cart from './components/Cart/cart'
+import myStore from './store/store';
+
 export default () => {
 
   const shoes_ad = {
@@ -84,6 +90,25 @@ export default () => {
     }
   }
 
+  useEffect(() => {
+    async function checkToken() {
+      try {
+        let resp = await axios.post('/check-session', { nishani: localStorage.getItem('myToken') });
+        
+        if (resp.data.name) {
+          myStore.dispatch({
+            type: "LOGIN",
+            user: resp.data
+          });
+        }
+
+      }catch (e) {
+
+      }
+    }
+    checkToken();
+
+  }, []);
 
   return <div>
     <BrowserRouter>
@@ -94,6 +119,7 @@ export default () => {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/launch' element={<LaunchPage data={shoes_ad} />} />
         <Route path='/launch/:index' element={<LaunchShoe data={shoes_ad} />} />
+        <Route path='/cart' element={<Cart  />} />
       </Routes>
     </BrowserRouter>
   </div>

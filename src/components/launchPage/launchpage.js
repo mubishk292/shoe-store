@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom"
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem , Button} from 'react-bootstrap';
 export default ({ data }) => {
 
     return <><ul className="shoesWaliList">
@@ -7,7 +7,7 @@ export default ({ data }) => {
 
         {
             Object.entries(data).map(([index, { name, img, description, price }]) => {
-                return <li key={index}>
+                return <li className="perShoeStyle" key={index}>
 
                     <Link to={`/launch/${index.trim()}`}>
                         <Card style={{ width: '18rem' }}>
@@ -17,15 +17,15 @@ export default ({ data }) => {
                             </Card.Body>
                             <ListGroup className="list-group-flush">
                                 <ListGroupItem>{description}</ListGroupItem>
-                                <ListGroupItem>Price {price}</ListGroupItem>
+                                <ListGroupItem>
+                                    Price {price}
+                                    <Button className="cartWalaBtn" variant='dark'>Add to Cart</Button>
+                                </ListGroupItem>
+                                {/* <ListGroupItem>Price {price}</ListGroupItem> */}
                             </ListGroup>
-                            {/* <Card.Body>
-                    <Card.Link href="#">Card Link</Card.Link>
-                    <Card.Link href="#">Another Link</Card.Link>
-                </Card.Body> */}
                         </Card>
                     </Link>
-                   
+
                 </li>
             })
 

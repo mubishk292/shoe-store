@@ -9,12 +9,16 @@ export default () => {
     let { register, handleSubmit, formState: { errors } } = useForm();
     let [showPassword, setShowPassword] = useState(false);
     let [word, setWord] = useState('Show')
+    
     let navigate = useNavigate()
     const formSubmisiion = async (myData) => {
         console.log(myData);
 
         axios.post('/login-form', myData).then((resp) => {
             if (resp.data) {
+
+                localStorage.setItem('myToken', resp.data.nishani)
+
                 myStore.dispatch({
                     type: 'LOGIN',
                     user: resp.data.userFound,
