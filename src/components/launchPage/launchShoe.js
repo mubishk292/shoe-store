@@ -14,20 +14,24 @@ export default ({ data }) => {
     let navigate = useNavigate()
     const [color, setColor] = useState("#80CED7");
 
-    let { index } = useParams();
+    let { title } = useParams();
 
-    let shoe = data[index]
+    let shoe = data.filter((abc)=>{
+        if(title == abc.title){
+            return abc
+        }
+    })
 
     if (!shoe) {
         return <h2>Shoe not Found</h2>
     }
-    let { name, img, description, price } = shoe;
+    let { name, pic, description, price } = shoe[0];
 
     return (
         <Row className="itemCard" style={{ backgroundColor: color }}>
             <Col sm={6}>
 
-                <img className="productImage" src={img} />
+                <img className="productImage" src={pic} />
             </Col>
             <Col className="info">
                 <h2>{name}</h2>

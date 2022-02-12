@@ -99,11 +99,20 @@ app.post('/create-ad',upload.single('file'), async (req,res)=>{
 
         await ad.save();
         res.json({success:true})
+        
     }catch(e){
         res.json(e)
     }
 
 })
+
+app.get('/ads-list', async (req, res) => {
+
+    let ads = await Ad.find({});
+  
+    res.json(ads);
+  
+});
 
 app.use(express.static('./server/build'))
 app.use(express.static('./server/uploads'))
