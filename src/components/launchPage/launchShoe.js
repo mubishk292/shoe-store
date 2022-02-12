@@ -2,9 +2,16 @@ import { useParams } from "react-router-dom"
 import { Button, Col, Row } from "react-bootstrap";
 import './file.css'
 import { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link , useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default ({ data }) => {
+
+    let user = useSelector((store) => {
+        return store.UserSection.currentUser;
+    })
+
+    let navigate = useNavigate()
     const [color, setColor] = useState("#80CED7");
 
     let { index } = useParams();
@@ -17,10 +24,10 @@ export default ({ data }) => {
     let { name, img, description, price } = shoe;
 
     return (
-        <Row className="itemCard" style={{backgroundColor: color}}>
+        <Row className="itemCard" style={{ backgroundColor: color }}>
             <Col sm={6}>
 
-                <img className="productImage" src={img}  />
+                <img className="productImage" src={img} />
             </Col>
             <Col className="info">
                 <h2>{name}</h2>
@@ -37,10 +44,14 @@ export default ({ data }) => {
                     <Col style={{ textAlign: "right" }}>
                         <p> <strong> Price: {price} </strong></p>
 
-                        <Button id="buy" variant="primary">
-                            <Link to='/cart' style={{color : 'white'}}>
-                                Add to Cart
-                            </Link>
+                        <Button id="buy" variant="primary" style={{ color: 'white' }} onClick={()=>{
+                            if(user.name){
+                                navigate('/cart')
+                            }else{
+                                navigate('/login')
+                            }
+                        }}>
+                            Add to Cart
                         </Button>
 
                     </Col>
