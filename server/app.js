@@ -114,6 +114,15 @@ app.get('/ads-list', async (req, res) => {
   
 });
 
+app.post('/cart-item', async (req, res) => {
+
+    let idOfProduct = req.body.id
+  
+    let adItem = await Ad.findById(idOfProduct)
+    res.json({adItem});
+  
+})
+
 app.use(express.static('./server/build'))
 app.use(express.static('./server/uploads'))
 

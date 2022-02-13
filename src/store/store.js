@@ -1,24 +1,22 @@
 import { createStore, combineReducers } from 'redux'
+import { useState , useEffect } from 'react'
 
-let adData = ["apple", "banana", "carott"];
+let adData = {
+    currentProduct: [],
+}
+
+
 
 function FirstSection(oldData = adData, newData) {
-
-    if (newData.type == "FRUIT_ADD") {
-
-        oldData.push(newData.fname);
-
-    } else if (newData.type == "FRUIT_DELETE") {
-
-        oldData.splice(newData.index, 1);
-
-    } else if (newData.type == "FRUIT_UPDATE") {
-
-        oldData[newData.index] = newData.nName;
-
+    switch (newData.type) {
+        case 'CART':
+            
+            oldData.currentProduct.push(newData.product);
+            break;          
     }
 
-    return oldData;
+
+    return { ...oldData };
 
 }
 

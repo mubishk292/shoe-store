@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom"
 import { Button, Col, Row } from "react-bootstrap";
 import './file.css'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import myStore from "../../store/store";
+import axios from 'axios';
 
 export default ({ data }) => {
 
@@ -16,16 +18,20 @@ export default ({ data }) => {
 
     let { title } = useParams();
 
-    let shoe = data.filter((abc)=>{
-        if(title == abc.title){
+    let shoe = data.filter((abc) => {
+        if (title == abc.title) {
             return abc
         }
     })
 
+    // useEffect(()=>{
+    //     console.log(shoe);
+    // },[])
+
     if (!shoe) {
         return <h2>Shoe not Found</h2>
     }
-    let { name, pic, description, price } = shoe[0];
+    let { name, pic, description, price, _id } = shoe[0];
 
     return (
         <Row className="itemCard" style={{ backgroundColor: color }}>
@@ -48,10 +54,18 @@ export default ({ data }) => {
                     <Col style={{ textAlign: "right" }}>
                         <p> <strong> Price: {price} </strong></p>
 
-                        <Button id="buy" variant="primary" style={{ color: 'white' }} onClick={()=>{
-                            if(user.name){
+                        <Button id="buy" variant="primary" style={{ color: 'white' }} onClick={() => {
+                            if (user.name) {
+
+                                axios.post('/cart-item', { id: _id }).then((resp) => {
+                                    myStore.dispatch({
+                                        type: "CART",
+                                        product: resp.data.adItem
+                                    })
+                                })
+
                                 navigate('/cart')
-                            }else{
+                            } else {
                                 navigate('/login')
                             }
                         }}>
