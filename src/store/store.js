@@ -1,5 +1,4 @@
 import { createStore, combineReducers } from 'redux'
-import { useState , useEffect } from 'react'
 
 let adData = {
     currentProduct: [],
@@ -8,6 +7,9 @@ let adData = {
 
 
 function FirstSection(oldData = adData, newData) {
+
+    oldData = {currentProduct:[...oldData.currentProduct]}
+
     switch (newData.type) {
         case 'CART':
             

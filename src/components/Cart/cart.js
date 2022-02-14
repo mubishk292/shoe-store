@@ -1,26 +1,18 @@
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import './cart.css'
+import { Link } from 'react-router-dom'
+
 
 export default () => {
 
     let [total, setTotal] = useState(0)
-    
-    let [cart , setCart] = useState([])
+
 
     let product = useSelector((store) => {
         return store.FirstSection.currentProduct
     })
 
-    const updateCart = async ()=>{
-        setCart([...product])
-
-    }
-
-    useEffect(() => {
-
-        console.log(cart);
-    })
 
     return (
         <div class="container">
@@ -29,12 +21,12 @@ export default () => {
                     <div class="col-md-9">
                         <div class="ibox">
                             <div class="ibox-title">
-                                <span class="pull-right">(<strong>{cart.length}</strong>) items</span>
+                                <span class="pull-right">(<strong>{product.length}</strong>) items</span>
                                 <h5>Items in your cart</h5>
                             </div>
-                            <ol>
+                            <ol className="cartWaliList">
                                 {
-                                    cart.map((ad) => {
+                                    product.map((ad) => {
                                         return <li>
                                             <div class="ibox-content">
                                                 <div class="table-responsive">
@@ -88,8 +80,9 @@ export default () => {
 
                             <div class="ibox-content">
                                 <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-                                <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
-
+                                <Link to='/launch'>
+                                    <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
+                                </Link>
                             </div>
                         </div>
 

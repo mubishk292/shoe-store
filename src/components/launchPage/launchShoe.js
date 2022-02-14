@@ -37,7 +37,7 @@ export default ({ data }) => {
         <Row className="itemCard" style={{ backgroundColor: color }}>
             <Col sm={6}>
 
-                <img className="productImage" src={pic} />
+                <img className="productImage" src={`/${pic}`} />
             </Col>
             <Col className="info">
                 <h2>{name}</h2>
