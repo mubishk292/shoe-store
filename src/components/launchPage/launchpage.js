@@ -11,7 +11,7 @@ export default ({ data }) => {
 
                     <Link to={`/launch/${title.trim()}`}>
                         <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={pic} />
+                            <Card.Img variant="top" src={`/${pic}`} />
                             <Card.Body>
                                 <Card.Title>{name}</Card.Title>
                             </Card.Body>

@@ -8,13 +8,28 @@ let adData = {
 
 function FirstSection(oldData = adData, newData) {
 
-    oldData = {currentProduct:[...oldData.currentProduct]}
+    oldData = { currentProduct: [...oldData.currentProduct] }
 
     switch (newData.type) {
         case 'CART':
-            
             oldData.currentProduct.push(newData.product);
-            break;          
+            break;
+        case 'QUANTITY':
+            // newData.indexProduct
+            // newData.qtyProduct
+
+            oldData.currentProduct[newData.indexProduct].qty = newData.qtyProduct
+
+            // let found;
+            // found = oldData.currentProduct.find((product , index)=>{
+            //     if(product.id == newData.indexProduct){
+            //         return oldData.currentProduct[index]
+            //     }
+            // })
+            
+            // console.log(oldData.currentProduct[newData.indexProduct]);
+
+            break;
     }
 
 

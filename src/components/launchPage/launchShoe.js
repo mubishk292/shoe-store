@@ -24,6 +24,23 @@ export default ({ data }) => {
         }
     })
 
+    const cartAdd = ()=>{
+        if (user.name) {
+
+            axios.post('/cart-item', { id: _id }).then((resp) => {
+                resp.data.adItem.qty = 1;
+                myStore.dispatch({
+                    type: "CART",
+                    product: resp.data.adItem
+                })
+            })
+
+            navigate('/cart')
+        } else {
+            navigate('/login')
+        }
+    }
+
     // useEffect(()=>{
     //     console.log(shoe);
     // },[])
@@ -54,21 +71,7 @@ export default ({ data }) => {
                     <Col style={{ textAlign: "right" }}>
                         <p> <strong> Price: {price} </strong></p>
 
-                        <Button id="buy" variant="primary" style={{ color: 'white' }} onClick={() => {
-                            if (user.name) {
-
-                                axios.post('/cart-item', { id: _id }).then((resp) => {
-                                    myStore.dispatch({
-                                        type: "CART",
-                                        product: resp.data.adItem
-                                    })
-                                })
-
-                                navigate('/cart')
-                            } else {
-                                navigate('/login')
-                            }
-                        }}>
+                        <Button id="buy" variant="primary" style={{ color: 'white' }} onClick={cartAdd}>
                             Add to Cart
                         </Button>
 

@@ -2,17 +2,35 @@ import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import './cart.css'
 import { Link } from 'react-router-dom'
-
+import myStore from "../../store/store"
 
 export default () => {
-
-    let [total, setTotal] = useState(0)
-
 
     let product = useSelector((store) => {
         return store.FirstSection.currentProduct
     })
 
+    let total = 0;
+
+    const updateQty = (evt, index) => {
+
+        myStore.dispatch({
+            type: 'QUANTITY',
+            qtyProduct : +evt.target.value,
+            indexProduct : index 
+            // qtyProduct : product[index].qty = +evt.target.value
+        })
+    
+        console.log(index);
+    }
+
+
+    product.forEach((ad) => {
+        total += (+ad.price) * (+ad.qty)
+        // console.log(total);
+    })
+
+  
 
     return (
         <div class="container">
@@ -26,7 +44,7 @@ export default () => {
                             </div>
                             <ol className="cartWaliList">
                                 {
-                                    product.map((ad) => {
+                                    product.map((ad, index) => {
                                         return <li>
                                             <div class="ibox-content">
                                                 <div class="table-responsive">
@@ -60,8 +78,10 @@ export default () => {
                                                                     ${ad.price}
 
                                                                 </td>
-                                                                <td width="65">
-                                                                    <input type="text" class="form-control" placeholder="1" />
+                                                                <td width="85">
+                                                                    <input type="number" class="form-control" onChange={(evt) => {
+                                                                        updateQty(evt, index)
+                                                                    }} placeholder="1" />
                                                                 </td>
                                                                 <td>
                                                                     <h4>
@@ -97,7 +117,7 @@ export default () => {
                                     Total
                                 </span>
                                 <h2 class="font-bold">
-                                    ${total}
+                                    ${+total}
                                 </h2>
 
                                 <hr />
